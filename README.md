@@ -3,6 +3,8 @@
 Atlas interactivo para estudiar el ramo **Anatomía e Histología** (Química y Farmacia). Funciona en ordenador y móvil.
 El nombre homenajea a Andrés Vesalio (1514–1564), considerado el padre de la anatomía moderna.
 
+**Pruébala aquí:** https://danielperezrj.github.io/vesalio/
+
 ## Cómo abrirlo
 - Doble clic en `index.html`, o bien
 - `node servidor.js` y abrir http://localhost:5173 (también desde el móvil en la misma red Wi‑Fi, usando la IP del ordenador).
