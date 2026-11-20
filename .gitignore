@@ -1,0 +1,8 @@
+# Configuración local de Claude Code (no se comparte)
+.claude/settings.local.json
+
+# Sistema
+Thumbs.db
+Desktop.ini
+.DS_Store
+node_modules/

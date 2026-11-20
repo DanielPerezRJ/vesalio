@@ -1,0 +1,244 @@
+:root {
+  --fondo: #f5f3ee;
+  --superficie: #ffffff;
+  --superficie-2: #f0ede6;
+  --texto: #1f2328;
+  --texto-suave: #5d6470;
+  --linea-ui: #ddd8cc;
+  --acento: #0f766e;
+  --acento-suave: #d5efeb;
+  --visor: #e9e5dc;
+  --visor-2: #f7f5f0;
+
+  --hueso: #f4ead6;
+  --borde: #8c7a58;
+  --hueso-hover: #fbe3a8;
+  --hueso-sombra: #d8c49d;
+  --hueco: #6e604a;
+  --diente: #fffdf7;
+  --marca: #5fd0c1;
+  --marca-borde: #0f766e;
+  --ok: #1a7f37;
+  --ok-claro: #9be0ac;
+  --error: #c62828;
+  --error-claro: #f5a3a3;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fondo: #11161c;
+    --superficie: #1a2129;
+    --superficie-2: #222b35;
+    --texto: #e6edf3;
+    --texto-suave: #9aa5b1;
+    --linea-ui: #2f3a46;
+    --acento: #4fd1c0;
+    --acento-suave: #173a37;
+    --visor: #151b22;
+    --visor-2: #1d252e;
+    --hueso: #e2d6bd;
+    --borde: #6f6046;
+    --hueso-hover: #f3d58c;
+    --hueso-sombra: #a8946f;
+    --hueco: #3b3326;
+    --marca: #4fd1c0;
+    --marca-borde: #b8fff5;
+    --ok: #56d364;
+    --error: #ff7b72;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --fondo: #11161c; --superficie: #1a2129; --superficie-2: #222b35; --texto: #e6edf3;
+  --texto-suave: #9aa5b1; --linea-ui: #2f3a46; --acento: #4fd1c0; --acento-suave: #173a37;
+  --visor: #151b22; --visor-2: #1d252e; --hueso: #e2d6bd; --borde: #6f6046;
+  --hueso-hover: #f3d58c; --hueso-sombra: #a8946f; --hueco: #3b3326; --marca: #4fd1c0; --marca-borde: #b8fff5;
+  --ok: #56d364; --error: #ff7b72; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--fondo);
+  color: var(--texto);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+button, select { font: inherit; color: inherit; }
+
+/* ---------- Cabecera ---------- */
+.cabecera {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 16px; background: var(--superficie); border-bottom: 1px solid var(--linea-ui);
+}
+.marca { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.logo { width: 34px; height: 34px; flex: none; fill: var(--acento); }
+.marca h1 { margin: 0; font-size: 18px; line-height: 1.2; }
+.marca p { margin: 0; font-size: 12.5px; color: var(--texto-suave); }
+.selector { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--texto-suave); }
+.selector select {
+  padding: 6px 10px; border-radius: 8px; border: 1px solid var(--linea-ui);
+  background: var(--superficie-2); color: var(--texto);
+}
+
+/* ---------- Controles ---------- */
+.controles {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 10px 16px; border-bottom: 1px solid var(--linea-ui); background: var(--superficie);
+}
+.regiones { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; max-width: 100%; }
+.regiones::-webkit-scrollbar { display: none; }
+.regiones button {
+  flex: none; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--linea-ui);
+  background: transparent; cursor: pointer; font-size: 13.5px; white-space: nowrap;
+}
+.regiones button:hover { border-color: var(--acento); }
+.regiones button.activo { background: var(--acento); border-color: var(--acento); color: var(--superficie); }
+.modos { display: flex; background: var(--superficie-2); border-radius: 10px; padding: 3px; }
+.modos button {
+  padding: 6px 14px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; font-size: 14px;
+}
+.modos button.activo { background: var(--superficie); box-shadow: 0 1px 3px rgba(0,0,0,.15); font-weight: 600; color: var(--acento); }
+
+/* ---------- Layout ---------- */
+.principal {
+  display: grid; grid-template-columns: minmax(0, 1fr) 400px;
+  height: calc(100vh - 120px); min-height: 520px;
+}
+.visor {
+  position: relative; overflow: hidden;
+  background: radial-gradient(ellipse at 50% 40%, var(--visor-2), var(--visor));
+}
+#figura { width: 100%; height: 100%; display: block; touch-action: manipulation; }
+.leyenda {
+  position: absolute; left: 12px; top: 10px; font-size: 12px; color: var(--texto-suave);
+  background: var(--superficie); padding: 2px 8px; border-radius: 6px; opacity: .85;
+}
+.etiqueta {
+  position: absolute; pointer-events: none; padding: 4px 9px; border-radius: 6px;
+  background: var(--texto); color: var(--fondo); font-size: 13px; font-weight: 600; white-space: nowrap;
+  transform: translate(12px, -50%);
+}
+.panel { overflow-y: auto; padding: 18px; background: var(--superficie); border-left: 1px solid var(--linea-ui); }
+
+/* ---------- Figura SVG ---------- */
+.hueso { cursor: pointer; transition: opacity .3s; }
+.hueso .f  { fill: var(--hueso); stroke: var(--borde); stroke-width: 1.1; stroke-linejoin: round; transition: fill .15s; }
+.hueso .ts { fill: none; stroke: var(--hueso); stroke-linecap: round; transition: stroke .15s; }
+.hueso .to { fill: none; stroke: var(--borde); stroke-linecap: round; }
+.hueso .cf { fill: var(--hueso); transition: fill .15s; }
+.hueso .co { fill: var(--borde); }
+.hueso .hit { fill: none; stroke: transparent; stroke-linecap: round; pointer-events: stroke; }
+.deco { pointer-events: none; transition: opacity .3s; }
+.deco.hueco .f { fill: var(--hueco); }
+.deco.dientes .f { fill: var(--diente); stroke: var(--borde); stroke-width: .5; }
+
+.hueso.hover { --hueso: var(--hueso-hover); }
+.hueso.activo, .hueso.objetivo { --hueso: var(--marca); --borde: var(--marca-borde); }
+.hueso.objetivo { animation: latido 1.3s ease-in-out infinite; }
+.hueso.acierto { --hueso: var(--ok-claro); --borde: var(--ok); }
+.hueso.error { --hueso: var(--error-claro); --borde: var(--error); }
+.atenuado { opacity: .16; pointer-events: none; }
+
+/* ---------- Láminas detalladas ---------- */
+.lam-contorno { fill: url(#grad-hueso); stroke: var(--borde); stroke-width: 1.6; stroke-linejoin: round; pointer-events: none; }
+.lam-sombra { fill: var(--hueso-sombra); stroke: var(--borde); stroke-width: .6; stroke-opacity: .5; pointer-events: none; }
+.lam-linea { fill: none; stroke: var(--borde); stroke-width: 1.1; stroke-opacity: .85; pointer-events: none; }
+.lam-rugoso { fill: none; stroke: var(--borde); stroke-width: 1.2; stroke-dasharray: 2 3; stroke-linecap: round; pointer-events: none; }
+.zona .f { fill: var(--marca); fill-opacity: 0; stroke: none; transition: fill-opacity .15s; }
+.zona.hover .f { fill: var(--hueso-hover); fill-opacity: .6; }
+.zona.activo .f, .zona.objetivo .f { fill: var(--marca); fill-opacity: .55; stroke: var(--marca-borde); stroke-width: 1.5; }
+.zona.acierto .f { fill: var(--ok); fill-opacity: .45; stroke: var(--ok); stroke-width: 1.5; }
+.zona.error .f { fill: var(--error); fill-opacity: .45; stroke: var(--error); stroke-width: 1.5; }
+
+.rotulo { cursor: pointer; }
+.rotulo line { stroke: var(--texto-suave); stroke-width: .8; }
+.rotulo circle { fill: var(--texto); }
+.rotulo text { fill: var(--texto); font-size: 13px; font-family: inherit; }
+.rotulo.hover text, .rotulo.activo text { fill: var(--acento); font-weight: 700; }
+.rotulo.activo line { stroke: var(--acento); stroke-width: 1.4; }
+.sin-nombres .rotulos, .modo-encuentra .rotulos, .modo-quiz .rotulos { display: none; }
+
+.regiones .volver { font-weight: 600; }
+.regiones .interruptor { margin-left: auto; }
+.regiones .interruptor::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; background: var(--linea-ui); vertical-align: 1px; }
+.regiones .interruptor.encendido::before { background: var(--acento); }
+.lista .nombre { flex: 1; }
+.mini { font-size: 10.5px; padding: 1px 6px; border-radius: 999px; background: var(--acento-suave); color: var(--acento); font-weight: 600; }
+.modo-quiz .hueso { cursor: default; }
+@keyframes latido { 50% { opacity: .55; } }
+@media (prefers-reduced-motion: reduce) { .hueso.objetivo { animation: none; } }
+
+/* ---------- Panel ---------- */
+.panel h2 { margin: 0; font-size: 22px; line-height: 1.25; }
+.panel h3 { margin: 18px 0 6px; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--texto-suave); }
+.panel p { margin: 8px 0; }
+.panel ul { margin: 0; padding-left: 18px; }
+.panel li { margin: 3px 0; }
+.alias { color: var(--texto-suave); font-style: italic; margin: 2px 0 0 !important; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.chip { font-size: 12px; padding: 2px 9px; border-radius: 999px; background: var(--acento-suave); color: var(--acento); font-weight: 600; }
+.clinica { margin-top: 16px; padding: 10px 12px; border-radius: 10px; background: var(--superficie-2); border-left: 3px solid var(--acento); }
+.clinica h3 { margin-top: 0; }
+.nota { font-size: 13px; color: var(--texto-suave); }
+
+.progreso-region { margin-bottom: 16px; }
+.progreso-region .barra { height: 6px; border-radius: 3px; background: var(--superficie-2); overflow: hidden; margin-top: 4px; }
+.progreso-region .barra span { display: block; height: 100%; background: var(--acento); transition: width .4s; }
+
+.lista { list-style: none; padding: 0 !important; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.lista button {
+  width: 100%; text-align: left; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--linea-ui);
+  background: transparent; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 14px;
+}
+.lista button:hover { border-color: var(--acento); }
+.lista button.activo { background: var(--acento-suave); border-color: var(--acento); }
+.punto { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--linea-ui); }
+.punto.bien { background: var(--ok); }
+.punto.mal { background: var(--error); }
+
+.boton {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 9px 16px; border-radius: 9px; border: 1px solid var(--linea-ui);
+  background: var(--superficie-2); cursor: pointer; font-weight: 600;
+}
+.boton.primario { background: var(--acento); border-color: var(--acento); color: var(--superficie); }
+.boton.texto { background: transparent; border: 0; padding: 6px 0; color: var(--texto-suave); font-weight: 500; }
+.acciones { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+
+.reto { padding: 16px; border-radius: 12px; background: var(--superficie-2); text-align: center; }
+.reto .pide { font-size: 13px; color: var(--texto-suave); margin: 0; }
+.reto .objetivo-nombre { font-size: 26px; font-weight: 700; margin: 4px 0 0; color: var(--acento); }
+.reto .pista { font-size: 17px; font-weight: 600; margin: 6px 0 0; }
+.marcador { display: flex; justify-content: space-around; margin: 14px 0; text-align: center; }
+.marcador b { display: block; font-size: 20px; }
+.marcador span { font-size: 12px; color: var(--texto-suave); }
+.mensaje { padding: 10px 12px; border-radius: 10px; margin-top: 12px; font-weight: 600; }
+.mensaje.ok { background: color-mix(in srgb, var(--ok) 15%, transparent); color: var(--ok); }
+.mensaje.error { background: color-mix(in srgb, var(--error) 15%, transparent); color: var(--error); }
+
+.opciones { display: grid; gap: 8px; margin-top: 14px; }
+.opciones button {
+  padding: 12px 14px; border-radius: 10px; border: 1px solid var(--linea-ui); background: var(--superficie);
+  text-align: left; cursor: pointer; font-size: 15px; font-weight: 500;
+}
+.opciones button:hover:not(:disabled) { border-color: var(--acento); }
+.opciones button.correcta { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 14%, transparent); }
+.opciones button.incorrecta { border-color: var(--error); background: color-mix(in srgb, var(--error) 14%, transparent); }
+.opciones button:disabled { cursor: default; }
+
+/* ---------- Móvil ---------- */
+@media (max-width: 860px) {
+  .cabecera { padding: 10px 16px; }
+  .marca h1 { font-size: 16px; }
+  .marca p { display: none; }
+  .selector span { display: none; }
+  .controles { padding: 8px 16px; }
+  .modos { width: 100%; }
+  .modos button { flex: 1; }
+  .principal { display: block; height: auto; min-height: 0; }
+  .visor { position: sticky; top: 0; z-index: 2; height: 48vh; border-bottom: 1px solid var(--linea-ui); }
+  .panel { border-left: 0; overflow: visible; padding: 16px; min-height: 60vh; }
+  .lista { grid-template-columns: 1fr 1fr; }
+}

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vesalio</title>
+  <meta name="description" content="Vesalio: atlas interactivo para estudiar Anatomía e Histología">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="marca">
+      <svg class="logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a4 4 0 0 1 4 4c0 1.5-.8 2.8-2 3.5V12h3a2 2 0 0 1 0 4h-3v4a2 2 0 0 1-4 0v-4H7a2 2 0 0 1 0-4h3V9.5A4 4 0 0 1 12 2z"/></svg>
+      <div>
+        <h1>Vesalio</h1>
+        <p>Atlas interactivo de Anatomía e Histología</p>
+      </div>
+    </div>
+    <label class="selector">
+      <span>Sistema</span>
+      <select id="sistema"></select>
+    </label>
+  </header>
+
+  <nav class="controles" aria-label="Controles de estudio">
+    <div class="regiones" id="regiones" role="tablist" aria-label="Región"></div>
+    <div class="modos" id="modos" role="tablist" aria-label="Modo de estudio">
+      <button data-modo="explorar" class="activo">Explorar</button>
+      <button data-modo="encuentra">Encuentra</button>
+      <button data-modo="quiz">Quiz</button>
+    </div>
+  </nav>
+
+  <main class="principal">
+    <section class="visor" id="visor" aria-label="Figura anatómica">
+      <svg id="figura" viewBox="60 0 280 920" role="img" aria-label="Esqueleto humano, vista anterior"></svg>
+      <div id="etiqueta" class="etiqueta" hidden></div>
+      <span class="leyenda" id="leyenda">Vista anterior</span>
+    </section>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </main>
+
+  <script src="js/sistemas/oseo.js"></script>
+  <script src="js/laminas/humero.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
