@@ -33,6 +33,14 @@ window.SISTEMAS.oseo = {
       pista: 'Forma la frente y el techo de las órbitas'
     },
     {
+      id: 'parietal', nombre: 'Hueso parietal', clase: 'Hueso plano', par: true, regiones: ['cabeza'],
+      descripcion: 'Los dos parietales forman la mayor parte del techo y de las paredes laterales de la bóveda craneal.',
+      puntos: ['Se unen entre sí por la sutura sagital, al frontal por la coronal, al occipital por la lambdoidea y al temporal por la escamosa.', 'Su cara interna tiene los surcos de la arteria meníngea media.', 'En el recién nacido, la fontanela anterior queda entre los parietales y el frontal.'],
+      articula: ['Parietal opuesto', 'Frontal', 'Occipital', 'Temporal', 'Esfenoides'],
+      clinica: 'Un golpe en el pterion (donde se unen frontal, parietal, temporal y esfenoides) puede romper la arteria meníngea media y causar un hematoma epidural.',
+      pista: 'Forman el techo del cráneo y se unen en la sutura sagital'
+    },
+    {
       id: 'temporal', nombre: 'Hueso temporal', clase: 'Hueso irregular', par: true, regiones: ['cabeza'],
       descripcion: 'Forma las paredes laterales y parte de la base del cráneo.',
       puntos: ['Su porción petrosa aloja el oído medio e interno.', 'Tiene las apófisis mastoides, estiloides y cigomática.', 'La fosa mandibular recibe al cóndilo de la mandíbula.'],
@@ -69,11 +77,59 @@ window.SISTEMAS.oseo = {
       pista: 'El único hueso móvil del cráneo'
     },
     {
+      id: 'esfenoides', nombre: 'Esfenoides', clase: 'Hueso irregular', par: false, regiones: ['cabeza'],
+      descripcion: 'Hueso impar con forma de mariposa en el centro de la base del cráneo. De frente se ven sus alas en el fondo de las órbitas.',
+      puntos: ['Articula con todos los demás huesos del cráneo.', 'Su silla turca aloja la hipófisis.', 'Tiene alas mayores y menores, el conducto óptico y la fisura orbitaria superior, y los agujeros redondo, oval y espinoso.', 'Contiene el seno esfenoidal.'],
+      articula: ['Frontal', 'Parietales', 'Temporales', 'Occipital', 'Etmoides', 'Vómer', 'Cigomáticos', 'Palatinos'],
+      clinica: 'Los tumores de la hipófisis suelen operarse por vía transesfenoidal, entrando por la nariz y el seno esfenoidal.',
+      pista: 'Hueso en mariposa cuya silla turca aloja la hipófisis'
+    },
+    {
+      id: 'etmoides', nombre: 'Etmoides', clase: 'Hueso irregular', par: false, regiones: ['cabeza'],
+      descripcion: 'Hueso impar, ligero y esponjoso, situado entre las dos órbitas y sobre la cavidad nasal.',
+      puntos: ['Su lámina cribosa deja pasar los filetes del nervio olfatorio.', 'La lámina perpendicular forma la parte alta del tabique nasal.', 'Lleva los cornetes nasales superior y medio, y las celdillas etmoidales (un seno paranasal).', 'Su lámina orbitaria forma gran parte de la pared medial de la órbita.'],
+      articula: ['Frontal', 'Esfenoides', 'Nasales', 'Maxilares', 'Lagrimales', 'Vómer', 'Palatinos'],
+      clinica: 'Una fractura de la lámina cribosa puede causar rinorraquia (salida de líquido cefalorraquídeo por la nariz) y pérdida del olfato.',
+      pista: 'Su lámina cribosa deja pasar los nervios del olfato'
+    },
+    {
+      id: 'lagrimal', nombre: 'Hueso lagrimal', clase: 'Hueso plano pequeño', par: true, regiones: ['cabeza'],
+      descripcion: 'El hueso más pequeño y frágil de la cara, en la parte anterior de la pared medial de la órbita.',
+      puntos: ['Forma la fosa del saco lagrimal.', 'De ahí parte el conducto nasolagrimal, que lleva las lágrimas a la nariz (meato inferior).'],
+      articula: ['Frontal', 'Maxilar', 'Etmoides', 'Cornete nasal inferior'],
+      clinica: 'Los colirios drenan por el conducto nasolagrimal a la nariz y pueden absorberse a la sangre (por ejemplo, el timolol puede bajar la frecuencia cardíaca). Presionar el ángulo interno del ojo uno o dos minutos tras aplicarlos reduce esa absorción.',
+      pista: 'El hueso más pequeño de la cara; aloja el saco lagrimal'
+    },
+    {
+      id: 'vomer', nombre: 'Vómer', clase: 'Hueso plano', par: false, regiones: ['cabeza'],
+      descripcion: 'Lámina ósea impar que forma la parte inferior y posterior del tabique nasal.',
+      puntos: ['El tabique nasal está formado por el vómer, la lámina perpendicular del etmoides y el cartílago septal.'],
+      articula: ['Esfenoides', 'Etmoides', 'Maxilares', 'Palatinos'],
+      clinica: 'La desviación del tabique nasal puede dificultar la respiración por la nariz y favorecer la sinusitis.',
+      pista: 'Forma la parte inferior del tabique nasal'
+    },
+    {
+      id: 'cornete-inferior', nombre: 'Cornete nasal inferior', alias: 'Concha nasal inferior', clase: 'Hueso irregular', par: true, regiones: ['cabeza'],
+      descripcion: 'Lámina ósea enrollada en la pared lateral de la cavidad nasal. Es un hueso propio (los cornetes superior y medio son parte del etmoides).',
+      puntos: ['Los cornetes, cubiertos de mucosa, calientan y humedecen el aire.', 'Bajo él (meato inferior) desemboca el conducto nasolagrimal.'],
+      articula: ['Maxilar', 'Lagrimal', 'Etmoides', 'Palatino'],
+      clinica: 'La mucosa nasal está muy irrigada, por eso la vía intranasal sirve para administrar fármacos. Los descongestionantes nasales (como la oximetazolina) usados más de unos días causan rinitis medicamentosa por efecto rebote.',
+      pista: 'Hueso propio de la pared lateral nasal bajo el que desemboca el conducto nasolagrimal'
+    },
+    {
       id: 'cervicales', nombre: 'Vértebras cervicales', clase: 'Huesos irregulares (7)', par: false, regiones: ['cabeza'],
       descripcion: 'Las siete vértebras del cuello (C1–C7), las más pequeñas y móviles de la columna.',
       puntos: ['C1 (atlas) no tiene cuerpo y sostiene el cráneo.', 'C2 (axis) tiene la apófisis odontoides (diente), eje de rotación de la cabeza.', 'Tienen forámenes transversos por donde pasan las arterias vertebrales.', 'C7 es la vértebra prominente: su apófisis espinosa se palpa en la nuca.'],
       articula: ['Occipital (C1)', 'Entre sí', 'Primera vértebra torácica (C7)'],
       pista: 'Incluyen el atlas y el axis'
+    },
+    {
+      id: 'hioides', nombre: 'Hioides', clase: 'Hueso irregular', par: false, regiones: ['cabeza'],
+      descripcion: 'Hueso en forma de U situado en el cuello, a la altura de C3, entre la mandíbula y la laringe.',
+      puntos: ['Es el único hueso que no articula con ningún otro: está suspendido por músculos y ligamentos.', 'Tiene un cuerpo y dos pares de astas (mayores y menores).', 'En él se insertan la lengua y los músculos supra e infrahioideos; participa en la deglución.'],
+      articula: ['Ninguno (unido por ligamentos a la apófisis estiloides del temporal)'],
+      clinica: 'Su fractura es rara y, en medicina legal, sugiere estrangulación.',
+      pista: 'Hueso en U del cuello que no articula con ningún otro'
     },
 
     // ---------------- Tórax ----------------
@@ -244,15 +300,23 @@ window.SISTEMAS.oseo = {
     // Cráneo
     { id: 'temporal', par: true, tipo: 'path', d: 'M153,70 L168,67 L167,98 L160,108 C154,98 152,85 153,70 Z' },
     { id: 'frontal', tipo: 'path', d: 'M153,70 C150,30 175,14 200,14 C225,14 250,30 247,70 L232,67 C224,60 210,60 200,65 C190,60 176,60 168,67 Z' },
+    { id: 'parietal', par: true, tipo: 'path', d: 'M153,68 C151,48 156,34 166,26 C163,40 163,55 167,66 Z' },
     { id: 'maxilar', tipo: 'path', d: 'M168,86 C176,94 188,94 195,90 L205,90 C212,94 224,94 232,86 L234,118 L166,118 Z' },
     { id: 'cigomatico', par: true, tipo: 'path', d: 'M168,67 L174,72 C171,80 172,88 178,94 L176,106 L162,108 L167,98 Z' },
     { id: 'frontal', deco: true, estilo: 'hueco', par: true, tipo: 'elipse', cx: 184, cy: 79, rx: 12, ry: 11 },
+    { id: 'esfenoides', par: true, tipo: 'path', d: 'M175,73 C178,70 181,70 183,72 L181,84 C178,83 176,81 175,78 Z' },
+    { id: 'etmoides', par: true, tipo: 'path', d: 'M185,73 L188.5,73 L188.5,83 L185,83 Z' },
+    { id: 'lagrimal', par: true, tipo: 'path', d: 'M190,75 L193.5,76 L193.5,85 L190,84 Z' },
     { id: 'nasal', tipo: 'path', d: 'M196,66 L204,66 L207,88 L193,88 Z' },
     { id: 'maxilar', deco: true, estilo: 'hueco', tipo: 'path', d: 'M200,91 L192,108 L208,108 Z' },
+    { id: 'etmoides', tipo: 'path', d: 'M199,91 L201,91 L201,97 L199,97 Z' },
+    { id: 'vomer', tipo: 'path', d: 'M199,97 L201,97 L202,108 L198,108 Z' },
+    { id: 'cornete-inferior', par: true, tipo: 'elipse', cx: 195.5, cy: 104, rx: 2, ry: 3 },
     { id: 'maxilar', deco: true, estilo: 'dientes', tipo: 'path', d: 'M177,110 H223 V118 H177 Z M183,110 V118 M189,110 V118 M195,110 V118 M200,110 V118 M205,110 V118 M211,110 V118 M217,110 V118' },
     { id: 'mandibula', tipo: 'path', d: 'M166,116 C166,142 184,154 200,154 C216,154 234,142 234,116 L226,118 L174,118 Z' },
     { id: 'mandibula', deco: true, estilo: 'dientes', tipo: 'path', d: 'M178,118 H222 V124 H178 Z M184,118 V124 M190,118 V124 M195,118 V124 M200,118 V124 M205,118 V124 M210,118 V124 M216,118 V124' },
     { id: 'cervicales', tipo: 'rects', rx: 2, rects: [[193, 156, 14, 6], [193, 164, 14, 6], [193, 172, 14, 6], [193, 180, 14, 6], [193, 188, 14, 6]] },
+    { id: 'hioides', tipo: 'curvas', w: 3, ds: ['M186,162 C190,168 210,168 214,162'] },
 
     // Tórax
     { id: 'escapula', par: true, tipo: 'path', d: 'M132,196 C145,198 155,202 163,207 L160,268 C150,250 140,228 132,196 Z' },
