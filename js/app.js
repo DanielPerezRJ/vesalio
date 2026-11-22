@@ -22,7 +22,8 @@
     marcador: { aciertos: 0, total: 0, racha: 0 },
     lamina: null,      // lámina abierta (o null = esqueleto completo)
     vista: null,       // id de la vista de la lámina
-    nombres: !window.matchMedia('(max-width: 860px)').matches
+    nombres: !window.matchMedia('(max-width: 860px)').matches,
+    lado: 'anterior'   // vista del esqueleto completo: 'anterior' o 'posterior'
   };
   var porId = {};
   var progreso = cargarProgreso();
@@ -65,8 +66,15 @@
   function enRegion(id) {
     return estado.region === 'todo' || porId[id].regiones.indexOf(estado.region) !== -1;
   }
+  // Formas del esqueleto según el lado que se mira
+  function formasLado() {
+    return estado.lado === 'posterior' && estado.sistema.formasPosterior ? estado.sistema.formasPosterior : estado.sistema.formas;
+  }
+  function visibleEnLado(id) {
+    return formasLado().some(function (f) { return f.id === id && !f.deco; });
+  }
   function estructurasRegion() {
-    return estado.sistema.estructuras.filter(function (e) { return enRegion(e.id); });
+    return estado.sistema.estructuras.filter(function (e) { return enRegion(e.id) && visibleEnLado(e.id); });
   }
   // Lo que se puede estudiar ahora mismo (estructuras de la región o partes de la vista)
   function items() {
@@ -114,15 +122,18 @@
   // ---------- Dibujo: esqueleto completo ----------
   function dibujarFigura() {
     svg.innerHTML = '';
+    actualizarGirar();
     svg.classList.toggle('sin-nombres', !estado.nombres);
     if (estado.lamina) { dibujarLamina(); return; }
     var capa = crear('g', { id: 'capa' }, svg);
-    estado.sistema.formas.forEach(function (f) {
+    formasLado().forEach(function (f) {
       dibujarForma(f, capa);
       if (f.par) dibujarForma(f, crear('g', { transform: 'translate(400,0) scale(-1,1)' }, capa));
     });
     fijarVista(regionActual().vista);
-    $('#leyenda').textContent = 'Vista anterior';
+    var post = estado.lado === 'posterior';
+    $('#leyenda').textContent = post ? 'Vista posterior' : 'Vista anterior';
+    svg.setAttribute('aria-label', 'Esqueleto humano, vista ' + (post ? 'posterior' : 'anterior'));
     aplicarRegion(false);
   }
 
@@ -310,9 +321,29 @@
     estado.lamina = null;
     estado.vista = null;
     estado.ultimo = null;
-    estado.seleccion = enRegion(estructura) ? estructura : null;
+    estado.seleccion = enRegion(estructura) && visibleEnLado(estructura) ? estructura : null;
     estado.marcador = { aciertos: 0, total: 0, racha: 0 };
     renderBarra();
+    dibujarFigura();
+    iniciarModo();
+  }
+
+  function actualizarGirar() {
+    var b = $('#girar');
+    var puede = !estado.lamina && !!estado.sistema.formasPosterior;
+    b.hidden = !puede;
+    if (puede) {
+      var post = estado.lado === 'posterior';
+      b.textContent = post ? '↻ Ver de frente' : '↻ Ver de espaldas';
+      b.setAttribute('aria-label', post ? 'Cambiar a vista anterior' : 'Cambiar a vista posterior');
+    }
+  }
+
+  function girar() {
+    estado.lado = estado.lado === 'posterior' ? 'anterior' : 'posterior';
+    if (estado.seleccion && !visibleEnLado(estado.seleccion)) estado.seleccion = null;
+    estado.ultimo = null;
+    ocultarEtiqueta();
     dibujarFigura();
     iniciarModo();
   }
@@ -460,7 +491,7 @@
       html += htmlFicha(porId[estado.seleccion]);
     } else {
       html += '<h2>Explora el esqueleto</h2><p>Toca un hueso en la figura o elige uno de la lista para ver su ficha. ' +
-        'Cambia de región arriba para acercarte a una zona.</p>' +
+        'Cambia de región arriba para acercarte a una zona y usa «Ver de espaldas» para la vista posterior.</p>' +
         '<p class="nota">Los huesos marcados con «lámina» tienen una lámina detallada con sus accidentes óseos.</p>';
     }
     html += htmlLista();
@@ -730,6 +761,8 @@
     else ampliar(2.5, ev.clientX, ev.clientY);
   });
 
+  $('#girar').addEventListener('click', girar);
+
   $('#zoom').addEventListener('click', function (ev) {
     var b = ev.target.closest('[data-zoom]');
     if (!b) return;
@@ -784,6 +817,7 @@
     estado.region = 'todo';
     estado.seleccion = null;
     estado.lamina = null;
+    estado.lado = 'anterior';
     renderSistemas();
     renderBarra();
     dibujarFigura();

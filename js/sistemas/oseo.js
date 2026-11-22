@@ -1,5 +1,5 @@
 /*
- * Sistema óseo: regiones, fichas de estudio y dibujo SVG (vista anterior).
+ * Sistema óseo: regiones, fichas de estudio y dibujo SVG (vistas anterior y posterior).
  *
  * Cómo está dibujado:
  *  - El lienzo mide 400 de ancho; el eje del cuerpo está en x = 200.
@@ -7,6 +7,8 @@
  *    y la app crea automáticamente su copia en espejo.
  *  - Tipos de forma: path, rects, circulos, elipse, curvas (trazos), huesos (hueso largo a -> b).
  *  - `deco: true` = detalle visual no clicable (órbitas, dientes, agujeros).
+ *  - `formas` es la vista anterior; `formasPosterior` (al final del archivo) la posterior.
+ *    En cada vista solo se estudian las estructuras que tienen alguna forma clicable.
  */
 window.SISTEMAS = window.SISTEMAS || {};
 
@@ -39,6 +41,14 @@ window.SISTEMAS.oseo = {
       articula: ['Parietal opuesto', 'Frontal', 'Occipital', 'Temporal', 'Esfenoides'],
       clinica: 'Un golpe en el pterion (donde se unen frontal, parietal, temporal y esfenoides) puede romper la arteria meníngea media y causar un hematoma epidural.',
       pista: 'Forman el techo del cráneo y se unen en la sutura sagital'
+    },
+    {
+      id: 'occipital', nombre: 'Hueso occipital', clase: 'Hueso plano', par: false, regiones: ['cabeza'],
+      descripcion: 'Forma la parte posterior e inferior del cráneo. Se ve en la vista posterior.',
+      puntos: ['Tiene el foramen magno (agujero occipital), por donde el bulbo raquídeo se continúa con la médula espinal y entran las arterias vertebrales.', 'Sus cóndilos articulan con el atlas (C1): es la articulación del movimiento de decir "sí".', 'La protuberancia occipital externa se palpa en la nuca.', 'Se une a los parietales por la sutura lambdoidea.'],
+      articula: ['Parietales', 'Temporales', 'Esfenoides', 'Atlas (C1)'],
+      clinica: 'Si la presión intracraneal sube mucho, el cerebelo puede herniarse por el foramen magno y comprimir el bulbo, donde están los centros de la respiración: es una urgencia vital.',
+      pista: 'Hueso de la nuca con el foramen magno'
     },
     {
       id: 'temporal', nombre: 'Hueso temporal', clase: 'Hueso irregular', par: true, regiones: ['cabeza'],
@@ -161,6 +171,14 @@ window.SISTEMAS.oseo = {
       puntos: ['Verdaderas (1–7): se unen directamente al esternón por su cartílago.', 'Falsas (8–10): se unen al cartílago de la costilla superior.', 'Flotantes (11–12): no llegan al esternón.', 'Protegen el corazón y los pulmones y participan en la respiración.'],
       articula: ['Vértebras torácicas (por detrás)', 'Esternón mediante cartílagos costales'],
       pista: '12 pares que protegen el corazón y los pulmones'
+    },
+    {
+      id: 'toracicas', nombre: 'Vértebras torácicas', alias: 'Vértebras dorsales', clase: 'Huesos irregulares (12)', par: false, regiones: ['torax'],
+      descripcion: 'Las doce vértebras del tórax (T1–T12). Desde delante las tapa el esternón; se ven en la vista posterior.',
+      puntos: ['Son las únicas que articulan con las costillas, por fositas en el cuerpo y en las apófisis transversas.', 'Sus apófisis espinosas son largas y se inclinan hacia abajo como tejas.', 'En conjunto forman la curva de cifosis torácica.'],
+      articula: ['Costillas', 'Entre sí', 'C7 y L1'],
+      clinica: 'La osteoporosis causa fracturas vertebrales por aplastamiento, con pérdida de estatura y aumento de la cifosis. El uso prolongado de corticoides es una causa frecuente de osteoporosis.',
+      pista: 'Las doce vértebras que articulan con las costillas'
     },
 
     // ---------------- Columna lumbar y pelvis ----------------
@@ -384,3 +402,54 @@ window.SISTEMAS.oseo = {
     ] }
   ]
 };
+
+/*
+ * Vista posterior. Mismo lienzo y misma escala que la anterior (las regiones sirven igual).
+ * Las formas que se ven igual desde atrás (huesos largos, pelvis...) se reutilizan de la vista anterior.
+ */
+(function () {
+  var o = window.SISTEMAS.oseo;
+  function de(id) { return o.formas.filter(function (f) { return f.id === id; }); }
+  function solo(id) { return o.formas.filter(function (f) { return f.id === id && !f.deco; }); }
+
+  var costillas = [];
+  for (var i = 0; i < 10; i++) {
+    var y = 210 + i * 11;
+    var lx = 150 - 12 * Math.sin(Math.PI * (i + 1) / 11);
+    costillas.push('M192,' + y + ' C178,' + (y - 2) + ' ' + lx.toFixed(1) + ',' + (y + 4) + ' ' + lx.toFixed(1) + ',' + (y + 20));
+  }
+  var toracicas = [];
+  for (var t = 0; t < 12; t++) toracicas.push([193, 198 + t * 10, 14, 8]);
+  var cervicales = [];
+  for (var c = 0; c < 7; c++) cervicales.push([194, 132 + c * 9, 12, 7]);
+
+  o.formasPosterior = [].concat(
+    // Tórax
+    [{ id: 'costillas', par: true, tipo: 'curvas', w: 4, ds: costillas }],
+    [{ id: 'toracicas', tipo: 'rects', rx: 2, rects: toracicas }],
+    solo('clavicula'),
+    [{ id: 'escapula', par: true, tipo: 'path', d: 'M133,195 L150,199 L168,204 C171,230 169,252 162,273 C150,259 140,237 134,215 C130,206 130,200 133,195 Z' },
+     { id: 'escapula', deco: true, estilo: 'cresta', par: true, tipo: 'path', d: 'M135,201 C148,206 158,211 168,216' }],
+
+    // Miembro superior
+    solo('humero'), solo('radio'), solo('cubito'), solo('carpo'), solo('metacarpo'), solo('falanges-mano'),
+
+    // Cabeza y cuello
+    [{ id: 'cervicales', tipo: 'rects', rx: 2, rects: cervicales },
+     { id: 'mandibula', tipo: 'path', d: 'M164,122 C166,140 180,152 200,154 C220,152 234,140 236,122 L228,124 C224,136 214,142 200,142 C186,142 176,136 172,124 Z' },
+     { id: 'temporal', par: true, tipo: 'path', d: 'M152,74 C150,92 154,110 165,125 L171,118 C163,110 158,100 156,90 Z' },
+     { id: 'parietal', par: true, tipo: 'path', d: 'M200,14 C175,14 150,30 153,72 L156,90 C172,79 188,68 200,60 Z' },
+     { id: 'occipital', tipo: 'path', d: 'M200,60 C188,68 172,79 156,90 C159,110 176,128 200,131 C224,128 241,110 244,90 C228,79 212,68 200,60 Z' },
+     { id: 'occipital', deco: true, estilo: 'cresta', tipo: 'path', d: 'M176,106 C186,100 194,100 200,104 C206,100 214,100 224,106' }],
+
+    // Columna lumbar y pelvis
+    de('lumbares'), de('coxal'),
+    [{ id: 'sacro', tipo: 'path', d: 'M184,408 L216,408 L208,458 L192,458 Z' },
+     { id: 'sacro', deco: true, estilo: 'hueco', tipo: 'circulos', circulos: [[193, 420, 2], [207, 420, 2], [194, 432, 2], [206, 432, 2], [195, 443, 1.8], [205, 443, 1.8]] }],
+    de('coccix'),
+
+    // Miembro inferior (de espaldas no se ven la rótula ni el antepié; del pie asoma el talón)
+    solo('femur'), solo('perone'), solo('tibia'),
+    [{ id: 'tarso', par: true, tipo: 'elipse', cx: 167, cy: 850, rx: 9, ry: 11 }]
+  );
+})();
