@@ -121,7 +121,7 @@
       dibujarForma(f, capa);
       if (f.par) dibujarForma(f, crear('g', { transform: 'translate(400,0) scale(-1,1)' }, capa));
     });
-    svg.setAttribute('viewBox', regionActual().vista);
+    fijarVista(regionActual().vista);
     $('#leyenda').textContent = 'Vista anterior';
     aplicarRegion(false);
   }
@@ -200,7 +200,7 @@
       t.textContent = L.partes[z.id].nombre;
     });
 
-    svg.setAttribute('viewBox', estado.nombres && estado.modo === 'explorar' ? L.vistaNombres : L.vistaSola);
+    fijarVista(estado.nombres && estado.modo === 'explorar' ? L.vistaNombres : L.vistaSola);
     $('#leyenda').textContent = L.subtitulo + ' · ' + v.nombre.toLowerCase();
   }
 
@@ -226,9 +226,20 @@
   }
 
   var animacion = null;
+  var base = [0, 0, 400, 920];   // encuadre "normal" de la figura actual; el zoom parte de aquí
+
+  function fijarVista(vista) {
+    cancelAnimationFrame(animacion);
+    base = vista.split(/\s+/).map(Number);
+    svg.setAttribute('viewBox', vista);
+    actualizarZoomUI();
+  }
+
   function irAVista(vista, animar) {
     var destino = vista.split(/\s+/).map(Number);
     var reducir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    base = destino;
+    actualizarZoomUI(destino);
     cancelAnimationFrame(animacion);
     if (!animar || reducir) { svg.setAttribute('viewBox', vista); return; }
     var inicio = svg.getAttribute('viewBox').split(/\s+/).map(Number);
@@ -619,6 +630,113 @@
     if (!id) return;
     if (estado.modo === 'explorar') seleccionar(id);
     else if (estado.modo === 'encuentra') responderTocar(id);
+  });
+
+  // ---------- Zoom y desplazamiento (rueda, arrastre, pellizco con dos dedos y botones) ----------
+  var ZOOM_MAX = 8;
+
+  function vistaActualNum() { return svg.getAttribute('viewBox').split(/\s+/).map(Number); }
+
+  function ponerVista(vb) {
+    // Limita el zoom entre el encuadre base y ZOOM_MAX, y no deja que el centro salga del encuadre base
+    var w = Math.min(base[2], Math.max(base[2] / ZOOM_MAX, vb[2]));
+    var h = w * base[3] / base[2];
+    var cx = vb[0] + vb[2] / 2, cy = vb[1] + vb[3] / 2;
+    cx = Math.min(base[0] + base[2], Math.max(base[0], cx));
+    cy = Math.min(base[1] + base[3], Math.max(base[1], cy));
+    if (w >= base[2]) { cx = base[0] + base[2] / 2; cy = base[1] + base[3] / 2; }
+    svg.setAttribute('viewBox', [cx - w / 2, cy - h / 2, w, h].map(function (n) { return +n.toFixed(2); }).join(' '));
+    actualizarZoomUI();
+  }
+
+  function actualizarZoomUI(vb) {
+    var w = (vb || vistaActualNum())[2];
+    visor.classList.toggle('ampliado', w < base[2] * 0.97);
+  }
+
+  // Punto de la pantalla -> coordenadas del SVG
+  function aSvg(x, y) {
+    var m = svg.getScreenCTM();
+    if (!m) return null;
+    var p = svg.createSVGPoint(); p.x = x; p.y = y;
+    return p.matrixTransform(m.inverse());
+  }
+
+  function ampliar(factor, x, y) {
+    cancelAnimationFrame(animacion);
+    var vb = vistaActualNum();
+    var p = x == null ? { x: vb[0] + vb[2] / 2, y: vb[1] + vb[3] / 2 } : aSvg(x, y);
+    if (!p) return;
+    var w = Math.min(base[2], Math.max(base[2] / ZOOM_MAX, vb[2] / factor));
+    var k = vb[2] / w;
+    ponerVista([p.x - (p.x - vb[0]) / k, p.y - (p.y - vb[1]) / k, w, vb[3] / k]);
+  }
+
+  function desplazar(dx, dy) {
+    var m = svg.getScreenCTM();
+    if (!m) return;
+    var vb = vistaActualNum();
+    ponerVista([vb[0] - dx / m.a, vb[1] - dy / m.d, vb[2], vb[3]]);
+  }
+
+  svg.addEventListener('wheel', function (ev) {
+    ev.preventDefault();
+    ampliar(Math.pow(1.0015, -ev.deltaY * (ev.deltaMode === 1 ? 30 : 1)), ev.clientX, ev.clientY);
+  }, { passive: false });
+
+  var punteros = {};          // pointerId -> {x, y}
+  var arrastrado = false;     // si hubo movimiento, el "click" siguiente no selecciona
+  var inicioToque = null;
+
+  svg.addEventListener('pointerdown', function (ev) {
+    if (ev.pointerType === 'mouse' && ev.button !== 0) return;
+    punteros[ev.pointerId] = { x: ev.clientX, y: ev.clientY };
+    if (Object.keys(punteros).length === 1) { arrastrado = false; inicioToque = { x: ev.clientX, y: ev.clientY }; }
+    else arrastrado = true;   // dos dedos: es un gesto, no un toque
+  });
+
+  svg.addEventListener('pointermove', function (ev) {
+    var prev = punteros[ev.pointerId];
+    if (!prev) return;
+    var ids = Object.keys(punteros);
+    if (ids.length >= 2) {
+      var otro = punteros[ids[0] == ev.pointerId ? ids[1] : ids[0]];
+      var d0 = Math.hypot(prev.x - otro.x, prev.y - otro.y);
+      var d1 = Math.hypot(ev.clientX - otro.x, ev.clientY - otro.y);
+      var m0x = (prev.x + otro.x) / 2, m0y = (prev.y + otro.y) / 2;
+      var m1x = (ev.clientX + otro.x) / 2, m1y = (ev.clientY + otro.y) / 2;
+      if (d0 > 0) ampliar(d1 / d0, m0x, m0y);
+      desplazar(m1x - m0x, m1y - m0y);
+    } else {
+      if (!arrastrado && Math.hypot(ev.clientX - inicioToque.x, ev.clientY - inicioToque.y) > 6) arrastrado = true;
+      if (arrastrado && visor.classList.contains('ampliado')) desplazar(ev.clientX - prev.x, ev.clientY - prev.y);
+    }
+    punteros[ev.pointerId] = { x: ev.clientX, y: ev.clientY };
+  });
+
+  function soltar(ev) { delete punteros[ev.pointerId]; }
+  svg.addEventListener('pointerup', soltar);
+  svg.addEventListener('pointercancel', soltar);
+  svg.addEventListener('pointerleave', function (ev) { if (ev.pointerType === 'mouse') soltar(ev); });
+
+  // Un arrastre o un pellizco no debe contar como toque sobre un hueso
+  svg.addEventListener('click', function (ev) {
+    if (arrastrado) { ev.stopImmediatePropagation(); arrastrado = false; }
+  }, true);
+
+  svg.addEventListener('dblclick', function (ev) {
+    ev.preventDefault();
+    if (visor.classList.contains('ampliado')) irAVista(base.join(' '), true);
+    else ampliar(2.5, ev.clientX, ev.clientY);
+  });
+
+  $('#zoom').addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-zoom]');
+    if (!b) return;
+    var z = b.getAttribute('data-zoom');
+    if (z === 'mas') ampliar(1.6);
+    else if (z === 'menos') ampliar(1 / 1.6);
+    else irAVista(base.join(' '), true);
   });
 
   $('#regiones').addEventListener('click', function (ev) {
