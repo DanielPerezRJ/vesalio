@@ -45,14 +45,14 @@ window.LAMINAS = window.LAMINAS || {};
     vistaNombres: '-150 12 600 750',
     vistaSola: '40 12 220 740',
     contorno: CONTORNO,
-    descripcion: 'Hueso largo del brazo. Su extremo proximal articula con la escápula (hombro) y el distal con el radio y el cúbito (codo).',
+    descripcion: 'Hueso largo del brazo. Su extremo proximal articula con la escápula (hombro) y el distal con el radio y la ulna (codo).',
 
     partes: {
       'cabeza': {
         nombre: 'Cabeza del húmero',
         descripcion: 'Superficie articular lisa y semiesférica, orientada hacia medial, arriba y atrás.',
-        puntos: ['Articula con la cavidad glenoidea de la escápula (articulación glenohumeral).', 'Está cubierta de cartílago articular.'],
-        pista: 'Superficie semiesférica que articula con la cavidad glenoidea'
+        puntos: ['Articula con la cavidad glenoidal de la escápula (articulación glenohumeral).', 'Está cubierta de cartílago articular.'],
+        pista: 'Superficie semiesférica que articula con la cavidad glenoidal'
       },
       'cuello-anatomico': {
         nombre: 'Cuello anatómico',
@@ -107,14 +107,14 @@ window.LAMINAS = window.LAMINAS || {};
       'epicondilo-medial': {
         nombre: 'Epicóndilo medial', alias: 'Epitróclea',
         descripcion: 'Prominencia medial del extremo distal, más saliente que la lateral.',
-        puntos: ['Origen de los músculos flexores del antebrazo y del pronador redondo.', 'Por detrás pasa el nervio cubital.'],
+        puntos: ['Origen de los músculos flexores del antebrazo y del pronador redondo.', 'Por detrás pasa el nervio ulnar.'],
         pista: 'Prominencia distal medial donde se originan los flexores del antebrazo'
       },
       'surco-nervio-cubital': {
-        nombre: 'Surco del nervio cubital',
+        nombre: 'Surco del nervio ulnar', alias: 'Surco del nervio cubital',
         descripcion: 'Canal en la cara posterior del epicóndilo medial.',
-        puntos: ['Aloja el nervio cubital, que aquí está muy superficial.'],
-        clinica: 'Un golpe en esta zona comprime el nervio cubital y produce el hormigueo del "hueso de la risa".',
+        puntos: ['Aloja el nervio ulnar (cubital), que aquí está muy superficial.'],
+        clinica: 'Un golpe en esta zona comprime el nervio ulnar y produce el hormigueo del "hueso de la risa".',
         pista: 'Canal posterior del epicóndilo medial; zona del "hueso de la risa"'
       },
       'epicondilo-lateral': {
@@ -133,14 +133,14 @@ window.LAMINAS = window.LAMINAS || {};
       'troclea': {
         nombre: 'Tróclea',
         descripcion: 'Superficie articular en forma de polea en la parte medial del extremo distal.',
-        puntos: ['Articula con la escotadura troclear del cúbito.'],
-        pista: 'Superficie en forma de polea que articula con el cúbito'
+        puntos: ['Articula con la incisura troclear de la ulna.'],
+        pista: 'Superficie en forma de polea que articula con la ulna'
       },
       'fosa-coronoidea': {
         nombre: 'Fosa coronoidea',
         descripcion: 'Depresión anterior por encima de la tróclea.',
-        puntos: ['Recibe la apófisis coronoides del cúbito cuando el codo se flexiona.'],
-        pista: 'Depresión anterior que recibe una apófisis del cúbito en la flexión'
+        puntos: ['Recibe el proceso coronoides de la ulna cuando el codo se flexiona.'],
+        pista: 'Depresión anterior que recibe un proceso de la ulna en la flexión'
       },
       'fosa-radial': {
         nombre: 'Fosa radial',
@@ -149,9 +149,9 @@ window.LAMINAS = window.LAMINAS || {};
         pista: 'Pequeña depresión anterior que recibe la cabeza del radio'
       },
       'fosa-olecraniana': {
-        nombre: 'Fosa olecraniana',
+        nombre: 'Fosa del olécranon', alias: 'Fosa olecraniana',
         descripcion: 'Depresión profunda en la cara posterior, por encima de la tróclea.',
-        puntos: ['Recibe el olécranon del cúbito cuando el codo se extiende.'],
+        puntos: ['Recibe el olécranon de la ulna cuando el codo se extiende.'],
         pista: 'Depresión posterior profunda que recibe el olécranon'
       }
     },

@@ -53,7 +53,7 @@ window.SISTEMAS.oseo = {
     {
       id: 'temporal', nombre: 'Hueso temporal', clase: 'Hueso irregular', par: true, regiones: ['cabeza'],
       descripcion: 'Forma las paredes laterales y parte de la base del cráneo.',
-      puntos: ['Su porción petrosa aloja el oído medio e interno.', 'Tiene las apófisis mastoides, estiloides y cigomática.', 'La fosa mandibular recibe al cóndilo de la mandíbula.'],
+      puntos: ['Su porción petrosa aloja el oído medio e interno.', 'Tiene los procesos mastoides, estiloides y cigomático.', 'La fosa mandibular recibe al cóndilo de la mandíbula.'],
       articula: ['Mandíbula (ATM)', 'Parietal', 'Occipital', 'Esfenoides', 'Cigomático'],
       pista: 'Aloja el oído medio e interno'
     },
@@ -67,7 +67,7 @@ window.SISTEMAS.oseo = {
     {
       id: 'cigomatico', nombre: 'Hueso cigomático', alias: 'Malar', clase: 'Hueso irregular', par: true, regiones: ['cabeza'],
       descripcion: 'Forma la prominencia del pómulo y parte de la pared lateral e inferior de la órbita.',
-      puntos: ['Junto con la apófisis cigomática del temporal forma el arco cigomático.', 'Inserción del músculo masetero.'],
+      puntos: ['Junto con el proceso cigomático del temporal forma el arco cigomático.', 'Inserción del músculo masetero.'],
       articula: ['Frontal', 'Temporal', 'Maxilar', 'Esfenoides'],
       pista: 'El hueso del pómulo'
     },
@@ -82,14 +82,14 @@ window.SISTEMAS.oseo = {
     {
       id: 'mandibula', nombre: 'Mandíbula', alias: 'Maxilar inferior', clase: 'Hueso irregular', par: false, regiones: ['cabeza'],
       descripcion: 'El hueso más grande y fuerte de la cara y el único hueso móvil del cráneo.',
-      puntos: ['Partes: cuerpo, dos ramas, cóndilos y apófisis coronoides.', 'Aloja los dientes inferiores.', 'Por el agujero mentoniano salen el nervio y los vasos mentonianos.'],
+      puntos: ['Partes: cuerpo, dos ramas, cóndilos y procesos coronoides.', 'Aloja los dientes inferiores.', 'Por el foramen mentoniano salen el nervio y los vasos mentonianos.'],
       articula: ['Temporales (articulación temporomandibular)'],
       pista: 'El único hueso móvil del cráneo'
     },
     {
       id: 'esfenoides', nombre: 'Esfenoides', clase: 'Hueso irregular', par: false, regiones: ['cabeza'],
       descripcion: 'Hueso impar con forma de mariposa en el centro de la base del cráneo. De frente se ven sus alas en el fondo de las órbitas.',
-      puntos: ['Articula con todos los demás huesos del cráneo.', 'Su silla turca aloja la hipófisis.', 'Tiene alas mayores y menores, el conducto óptico y la fisura orbitaria superior, y los agujeros redondo, oval y espinoso.', 'Contiene el seno esfenoidal.'],
+      puntos: ['Articula con todos los demás huesos del cráneo.', 'Su silla turca aloja la hipófisis.', 'Tiene alas mayores y menores, el conducto óptico y la fisura orbitaria superior, y los forámenes redondo, oval y espinoso.', 'Contiene el seno esfenoidal.'],
       articula: ['Frontal', 'Parietales', 'Temporales', 'Occipital', 'Etmoides', 'Vómer', 'Cigomáticos', 'Palatinos'],
       clinica: 'Los tumores de la hipófisis suelen operarse por vía transesfenoidal, entrando por la nariz y el seno esfenoidal.',
       pista: 'Hueso en mariposa cuya silla turca aloja la hipófisis'
@@ -129,7 +129,7 @@ window.SISTEMAS.oseo = {
     {
       id: 'cervicales', nombre: 'Vértebras cervicales', clase: 'Huesos irregulares (7)', par: false, regiones: ['cabeza'],
       descripcion: 'Las siete vértebras del cuello (C1–C7), las más pequeñas y móviles de la columna.',
-      puntos: ['C1 (atlas) no tiene cuerpo y sostiene el cráneo.', 'C2 (axis) tiene la apófisis odontoides (diente), eje de rotación de la cabeza.', 'Tienen forámenes transversos por donde pasan las arterias vertebrales.', 'C7 es la vértebra prominente: su apófisis espinosa se palpa en la nuca.'],
+      puntos: ['C1 (atlas) no tiene cuerpo y sostiene el cráneo.', 'C2 (axis) tiene el diente (proceso odontoides), eje de rotación de la cabeza.', 'Tienen forámenes transversos por donde pasan las arterias vertebrales.', 'C7 es la vértebra prominente: su proceso espinoso se palpa en la nuca.'],
       articula: ['Occipital (C1)', 'Entre sí', 'Primera vértebra torácica (C7)'],
       pista: 'Incluyen el atlas y el axis'
     },
@@ -137,7 +137,7 @@ window.SISTEMAS.oseo = {
       id: 'hioides', nombre: 'Hioides', clase: 'Hueso irregular', par: false, regiones: ['cabeza'],
       descripcion: 'Hueso en forma de U situado en el cuello, a la altura de C3, entre la mandíbula y la laringe.',
       puntos: ['Es el único hueso que no articula con ningún otro: está suspendido por músculos y ligamentos.', 'Tiene un cuerpo y dos pares de astas (mayores y menores).', 'En él se insertan la lengua y los músculos supra e infrahioideos; participa en la deglución.'],
-      articula: ['Ninguno (unido por ligamentos a la apófisis estiloides del temporal)'],
+      articula: ['Ninguno (unido por ligamentos al proceso estiloides del temporal)'],
       clinica: 'Su fractura es rara y, en medicina legal, sugiere estrangulación.',
       pista: 'Hueso en U del cuello que no articula con ningún otro'
     },
@@ -153,29 +153,46 @@ window.SISTEMAS.oseo = {
     {
       id: 'escapula', nombre: 'Escápula', alias: 'Omóplato', clase: 'Hueso plano', par: true, regiones: ['torax', 'msup'],
       descripcion: 'Hueso triangular en la cara posterior del tórax, entre la 2.ª y la 7.ª costilla.',
-      puntos: ['Estructuras clave: espina, acromion, apófisis coracoides y cavidad glenoidea.', 'La cavidad glenoidea recibe la cabeza del húmero.', 'Origen de los músculos del manguito rotador.'],
+      puntos: ['Estructuras clave: espina, acromion, proceso coracoides y cavidad glenoidal.', 'La cavidad glenoidal recibe la cabeza del húmero.', 'Origen de los músculos del manguito rotador.'],
       articula: ['Húmero (glenohumeral)', 'Clavícula (acromioclavicular)'],
-      pista: 'Hueso triangular con acromion y cavidad glenoidea'
+      pista: 'Hueso triangular con acromion y cavidad glenoidal'
     },
     {
       id: 'esternon', nombre: 'Esternón', clase: 'Hueso plano', par: false, regiones: ['torax'],
       descripcion: 'Hueso plano en la línea media anterior del tórax.',
-      puntos: ['Tres partes: manubrio, cuerpo y apófisis xifoides.', 'El ángulo esternal (de Louis) marca el nivel de la 2.ª costilla.', 'Contiene médula ósea roja en el adulto.'],
+      puntos: ['Tres partes: manubrio, cuerpo y proceso xifoides.', 'El ángulo esternal (de Louis) marca el nivel de la 2.ª costilla.', 'Contiene médula ósea roja en el adulto.'],
       articula: ['Clavículas', 'Cartílagos costales de las costillas 1 a 7'],
-      clinica: 'Por su médula ósea roja y su posición superficial es un sitio para punción o aspiración de médula ósea. La apófisis xifoides es referencia en la RCP.',
-      pista: 'Formado por manubrio, cuerpo y apófisis xifoides'
+      clinica: 'Por su médula ósea roja y su posición superficial es un sitio para punción o aspiración de médula ósea. El proceso xifoides es referencia en la RCP.',
+      pista: 'Formado por manubrio, cuerpo y proceso xifoides'
     },
     {
-      id: 'costillas', nombre: 'Costillas', clase: 'Huesos planos (12 pares)', par: true, regiones: ['torax'],
-      descripcion: 'Doce pares de huesos curvos que forman la caja torácica junto con el esternón y las vértebras torácicas.',
-      puntos: ['Verdaderas (1–7): se unen directamente al esternón por su cartílago.', 'Falsas (8–10): se unen al cartílago de la costilla superior.', 'Flotantes (11–12): no llegan al esternón.', 'Protegen el corazón y los pulmones y participan en la respiración.'],
-      articula: ['Vértebras torácicas (por detrás)', 'Esternón mediante cartílagos costales'],
-      pista: '12 pares que protegen el corazón y los pulmones'
+      id: 'costillas-verdaderas', nombre: 'Costillas verdaderas', alias: 'Costillas vertebroesternales (1.ª a 7.ª)', clase: 'Huesos planos (7 pares)', par: true, regiones: ['torax'],
+      descripcion: 'Los siete primeros pares de costillas. Cada una se une directamente al esternón por su propio cartílago costal.',
+      puntos: ['Por detrás, la cabeza articula con los cuerpos vertebrales y el tubérculo con el proceso transverso.', 'La 1.ª costilla es la más corta, ancha y curva; tiene los surcos de la arteria y la vena subclavias.', 'Las costillas 3.ª a 9.ª son "típicas": cabeza, cuello, tubérculo, ángulo y cuerpo.'],
+      articula: ['Vértebras torácicas', 'Esternón (por su cartílago costal)'],
+      clinica: 'Los vasos y el nervio intercostales corren por el borde inferior de cada costilla. Por eso los drenajes y punciones del tórax se hacen por el borde superior de la costilla de abajo, y el bloqueo intercostal con anestésico local (lidocaína, bupivacaína) se inyecta junto al borde inferior.',
+      pista: 'Costillas 1.ª a 7.ª, unidas al esternón por su propio cartílago'
+    },
+    {
+      id: 'costillas-falsas', nombre: 'Costillas falsas', alias: 'Costillas vertebrocondrales (8.ª a 10.ª)', clase: 'Huesos planos (3 pares)', par: true, regiones: ['torax'],
+      descripcion: 'Los pares 8.º a 10.º. Su cartílago no llega al esternón: se une al cartílago de la costilla de arriba.',
+      puntos: ['Sus cartílagos unidos forman el reborde (arco) costal.', 'Algunos textos cuentan también las flotantes como costillas falsas.'],
+      articula: ['Vértebras torácicas', 'Cartílago de la costilla superior'],
+      clinica: 'El reborde costal es la referencia para palpar el hígado (a la derecha) y el bazo (a la izquierda). Las fracturas costales duelen mucho al respirar; un buen control del dolor evita que la persona respire superficialmente y haga una neumonía.',
+      pista: 'Costillas 8.ª a 10.ª, unidas al cartílago de la costilla de arriba'
+    },
+    {
+      id: 'costillas-flotantes', nombre: 'Costillas flotantes', alias: 'Costillas vertebrales (11.ª y 12.ª)', clase: 'Huesos planos (2 pares)', par: true, regiones: ['torax'],
+      descripcion: 'Los dos últimos pares. Son cortas y su extremo anterior queda libre entre los músculos del abdomen.',
+      puntos: ['Solo articulan con las vértebras torácicas T11 y T12.', 'No tienen cuello ni tubérculo marcados.', 'La 12.ª cruza por detrás el polo superior del riñón.'],
+      articula: ['Vértebras torácicas (T11 y T12)'],
+      clinica: 'Una fractura de las costillas bajas puede lesionar el riñón o el bazo.',
+      pista: 'Las dos últimas, con el extremo anterior libre'
     },
     {
       id: 'toracicas', nombre: 'Vértebras torácicas', alias: 'Vértebras dorsales', clase: 'Huesos irregulares (12)', par: false, regiones: ['torax'],
       descripcion: 'Las doce vértebras del tórax (T1–T12). Desde delante las tapa el esternón; se ven en la vista posterior.',
-      puntos: ['Son las únicas que articulan con las costillas, por fositas en el cuerpo y en las apófisis transversas.', 'Sus apófisis espinosas son largas y se inclinan hacia abajo como tejas.', 'En conjunto forman la curva de cifosis torácica.'],
+      puntos: ['Son las únicas que articulan con las costillas, por fositas en el cuerpo y en los procesos transversos.', 'Sus procesos espinosos son largos y se inclinan hacia abajo como tejas.', 'En conjunto forman la curva de cifosis torácica.'],
       articula: ['Costillas', 'Entre sí', 'C7 y L1'],
       clinica: 'La osteoporosis causa fracturas vertebrales por aplastamiento, con pérdida de estatura y aumento de la cifosis. El uso prolongado de corticoides es una causa frecuente de osteoporosis.',
       pista: 'Las doce vértebras que articulan con las costillas'
@@ -185,7 +202,7 @@ window.SISTEMAS.oseo = {
     {
       id: 'lumbares', nombre: 'Vértebras lumbares', clase: 'Huesos irregulares (5)', par: false, regiones: ['abdomen'],
       descripcion: 'Las cinco vértebras de la parte baja de la espalda (L1–L5), las más grandes de la columna.',
-      puntos: ['Tienen cuerpos voluminosos porque soportan gran parte del peso.', 'Sus apófisis espinosas son cortas y horizontales.', 'La médula espinal termina hacia L1–L2.'],
+      puntos: ['Tienen cuerpos voluminosos porque soportan gran parte del peso.', 'Sus procesos espinosos son cortos y horizontales.', 'La médula espinal termina hacia L1–L2.'],
       articula: ['T12', 'Entre sí', 'Sacro (L5)'],
       clinica: 'La punción lumbar (para obtener líquido cefalorraquídeo o administrar anestesia raquídea) se hace entre L3–L4 o L4–L5, por debajo del final de la médula.',
       pista: 'Entre ellas se realiza la punción lumbar'
@@ -207,7 +224,7 @@ window.SISTEMAS.oseo = {
     {
       id: 'coxal', nombre: 'Hueso coxal', alias: 'Hueso ilíaco o de la cadera', clase: 'Hueso plano', par: true, regiones: ['abdomen', 'minf'],
       descripcion: 'Resulta de la fusión de tres huesos (ilion, isquion y pubis), que se unen en el acetábulo durante la adolescencia.',
-      puntos: ['Los dos coxales y el sacro forman la pelvis.', 'El acetábulo recibe la cabeza del fémur.', 'El agujero obturador está cerrado casi por completo por una membrana.', 'La pelvis femenina es más ancha y con abertura superior más redondeada.'],
+      puntos: ['Los dos coxales y el sacro forman la pelvis.', 'El acetábulo recibe la cabeza del fémur.', 'El foramen obturado está cerrado casi por completo por una membrana.', 'La pelvis femenina es más ancha y con abertura superior más redondeada.'],
       articula: ['Sacro (sacroilíaca)', 'Fémur (cadera)', 'Coxal opuesto (sínfisis del pubis)'],
       clinica: 'La cresta ilíaca es un sitio habitual para biopsia de médula ósea.',
       pista: 'Resulta de la fusión de ilion, isquion y pubis'
@@ -218,22 +235,22 @@ window.SISTEMAS.oseo = {
       id: 'humero', nombre: 'Húmero', clase: 'Hueso largo', par: true, regiones: ['msup'],
       descripcion: 'El hueso del brazo, entre el hombro y el codo.',
       puntos: ['Extremo proximal: cabeza, cuello anatómico, cuello quirúrgico y tubérculos mayor y menor.', 'En la diáfisis está el surco del nervio radial.', 'Extremo distal: tróclea, capítulo (cóndilo) y epicóndilos medial y lateral.'],
-      articula: ['Escápula', 'Radio', 'Cúbito'],
-      clinica: 'El nervio cubital pasa por detrás del epicóndilo medial: el golpe en esa zona produce el hormigueo del "hueso de la risa".',
+      articula: ['Escápula', 'Radio', 'Ulna'],
+      clinica: 'El nervio ulnar (cubital) pasa por detrás del epicóndilo medial: el golpe en esa zona produce el hormigueo del "hueso de la risa".',
       pista: 'Hueso del brazo con cuello anatómico y quirúrgico'
     },
     {
       id: 'radio', nombre: 'Radio', clase: 'Hueso largo', par: true, regiones: ['msup'],
       descripcion: 'Hueso lateral del antebrazo (del lado del pulgar).',
-      puntos: ['Su cabeza en forma de disco gira sobre el cúbito y permite la pronación y supinación.', 'Su extremo distal es ancho y forma la mayor parte de la muñeca.', 'Tiene la apófisis estiloides radial.'],
-      articula: ['Húmero', 'Cúbito', 'Escafoides y semilunar'],
+      puntos: ['Su cabeza en forma de disco gira sobre la ulna y permite la pronación y supinación.', 'Su extremo distal es ancho y forma la mayor parte de la muñeca.', 'Tiene el proceso estiloides del radio.'],
+      articula: ['Húmero', 'Ulna', 'Escafoides y semilunar'],
       clinica: 'La fractura de Colles (extremo distal del radio) es típica al caer sobre la mano extendida. El pulso radial se toma sobre este hueso.',
       pista: 'Hueso lateral del antebrazo, del lado del pulgar'
     },
     {
-      id: 'cubito', nombre: 'Cúbito', alias: 'Ulna', clase: 'Hueso largo', par: true, regiones: ['msup'],
+      id: 'cubito', nombre: 'Ulna', alias: 'Cúbito', clase: 'Hueso largo', par: true, regiones: ['msup'],
       descripcion: 'Hueso medial del antebrazo (del lado del meñique).',
-      puntos: ['El olécranon forma la punta del codo.', 'La escotadura troclear abraza la tróclea del húmero.', 'Su extremo distal (cabeza) es pequeño.'],
+      puntos: ['El olécranon forma la punta del codo.', 'La incisura troclear abraza la tróclea del húmero.', 'Su extremo distal (cabeza) es pequeño.'],
       articula: ['Húmero', 'Radio'],
       pista: 'Su olécranon forma la punta del codo'
     },
@@ -265,12 +282,12 @@ window.SISTEMAS.oseo = {
       id: 'femur', nombre: 'Fémur', clase: 'Hueso largo', par: true, regiones: ['minf'],
       descripcion: 'El hueso del muslo; el más largo, pesado y resistente del cuerpo.',
       puntos: ['Extremo proximal: cabeza, cuello y trocánteres mayor y menor.', 'La línea áspera en la cara posterior es inserción muscular.', 'Extremo distal: cóndilos medial y lateral.'],
-      articula: ['Coxal (cadera)', 'Tibia', 'Rótula'],
+      articula: ['Coxal (cadera)', 'Tibia', 'Patela'],
       clinica: 'La fractura del cuello del fémur es típica de adultos mayores con osteoporosis. La osteoporosis se trata con fármacos como los bisfosfonatos (por ejemplo, alendronato), junto con calcio y vitamina D.',
       pista: 'El hueso más largo y resistente del cuerpo'
     },
     {
-      id: 'rotula', nombre: 'Rótula', alias: 'Patela', clase: 'Hueso sesamoideo', par: true, regiones: ['minf'],
+      id: 'rotula', nombre: 'Patela', alias: 'Rótula', clase: 'Hueso sesamoideo', par: true, regiones: ['minf'],
       descripcion: 'Hueso triangular situado dentro del tendón del cuádriceps, delante de la rodilla.',
       puntos: ['Es el hueso sesamoideo más grande del cuerpo.', 'Protege la rodilla y mejora la palanca del cuádriceps.'],
       articula: ['Fémur'],
@@ -279,22 +296,22 @@ window.SISTEMAS.oseo = {
     {
       id: 'tibia', nombre: 'Tibia', clase: 'Hueso largo', par: true, regiones: ['minf'],
       descripcion: 'Hueso medial y más grueso de la pierna; soporta el peso del cuerpo.',
-      puntos: ['Su extremo superior forma la meseta tibial.', 'En la tuberosidad tibial se inserta el ligamento rotuliano.', 'Su borde anterior se palpa bajo la piel (la espinilla).', 'Distalmente forma el maléolo medial.'],
-      articula: ['Fémur', 'Peroné', 'Astrágalo'],
+      puntos: ['Su extremo superior forma la meseta tibial.', 'En la tuberosidad tibial se inserta el ligamento patelar.', 'Su borde anterior se palpa bajo la piel (la espinilla).', 'Distalmente forma el maléolo medial.'],
+      articula: ['Fémur', 'Fíbula', 'Talus'],
       pista: 'Hueso medial de la pierna que soporta el peso'
     },
     {
-      id: 'perone', nombre: 'Peroné', alias: 'Fíbula', clase: 'Hueso largo', par: true, regiones: ['minf'],
+      id: 'perone', nombre: 'Fíbula', alias: 'Peroné', clase: 'Hueso largo', par: true, regiones: ['minf'],
       descripcion: 'Hueso lateral y delgado de la pierna.',
       puntos: ['Casi no soporta peso; sirve sobre todo para inserción muscular.', 'Distalmente forma el maléolo lateral del tobillo.'],
-      articula: ['Tibia', 'Astrágalo'],
+      articula: ['Tibia', 'Talus'],
       pista: 'Hueso delgado lateral de la pierna que forma el maléolo lateral'
     },
     {
       id: 'tarso', nombre: 'Tarso', clase: 'Huesos cortos (7)', par: true, regiones: ['minf'],
       descripcion: 'Los siete huesos de la parte posterior del pie y el tobillo.',
-      puntos: ['Astrágalo (talus): articula con tibia y peroné formando el tobillo.', 'Calcáneo: el más grande, forma el talón.', 'Además: navicular, cuboides y tres cuneiformes.'],
-      articula: ['Tibia', 'Peroné', 'Metatarsianos', 'Entre sí'],
+      puntos: ['Talus (astrágalo): articula con tibia y fíbula formando el tobillo.', 'Calcáneo: el más grande, forma el talón.', 'Además: navicular, cuboides y tres cuneiformes.'],
+      articula: ['Tibia', 'Fíbula', 'Metatarsianos', 'Entre sí'],
       pista: 'Siete huesos, entre ellos el astrágalo y el calcáneo'
     },
     {
@@ -338,15 +355,27 @@ window.SISTEMAS.oseo = {
 
     // Tórax
     { id: 'escapula', par: true, tipo: 'path', d: 'M132,196 C145,198 155,202 163,207 L160,268 C150,250 140,228 132,196 Z' },
-    { id: 'costillas', par: true, tipo: 'curvas', w: 4, ds: (function () {
+    // Costillas (vista anterior): verdaderas llegan al esternón; falsas, al reborde costal; flotantes, libres
+    { id: 'costillas-verdaderas', par: true, tipo: 'curvas', w: 4, ds: (function () {
       var ds = [];
-      for (var i = 0; i < 10; i++) {
+      for (var i = 0; i < 7; i++) {
         var y = 214 + i * 11;
         var lx = 150 - 12 * Math.sin(Math.PI * (i + 1) / 11);
         ds.push('M189,' + y + ' C175,' + (y - 4) + ' ' + lx.toFixed(1) + ',' + (y + 2) + ' ' + lx.toFixed(1) + ',' + (y + 18));
       }
       return ds;
     })() },
+    { id: 'costillas-falsas', par: true, tipo: 'curvas', w: 4, ds: (function () {
+      var ds = [];
+      for (var i = 7; i < 10; i++) {
+        var y = 214 + i * 11;
+        var lx = 150 - 12 * Math.sin(Math.PI * (i + 1) / 11);
+        var mx = 189 - 6 * (i - 6), my = 280 + 7 * (i - 6);   // se apoyan en el reborde costal
+        ds.push('M' + mx + ',' + my + ' C' + (mx - 10) + ',' + (my - 2) + ' ' + lx.toFixed(1) + ',' + (y + 2) + ' ' + lx.toFixed(1) + ',' + (y + 18));
+      }
+      return ds;
+    })() },
+    { id: 'costillas-flotantes', par: true, tipo: 'curvas', w: 3.5, ds: ['M156,322 C150,325 147,331 146,339', 'M160,334 C156,337 154,342 153,348'] },
     { id: 'esternon', tipo: 'path', d: 'M190,203 L210,203 L211,222 L209,224 L208,292 L205,294 L200,308 L195,294 L192,292 L191,224 L189,222 Z' },
     { id: 'clavicula', par: true, tipo: 'curvas', w: 6, ds: ['M191,200 C175,193 160,201 140,197'] },
 
@@ -412,11 +441,17 @@ window.SISTEMAS.oseo = {
   function de(id) { return o.formas.filter(function (f) { return f.id === id; }); }
   function solo(id) { return o.formas.filter(function (f) { return f.id === id && !f.deco; }); }
 
-  var costillas = [];
-  for (var i = 0; i < 10; i++) {
-    var y = 210 + i * 11;
-    var lx = 150 - 12 * Math.sin(Math.PI * (i + 1) / 11);
-    costillas.push('M192,' + y + ' C178,' + (y - 2) + ' ' + lx.toFixed(1) + ',' + (y + 4) + ' ' + lx.toFixed(1) + ',' + (y + 20));
+  // 12 pares desde las vértebras torácicas; las flotantes (11.ª y 12.ª) son cortas
+  var costillas = { verdaderas: [], falsas: [], flotantes: [] };
+  for (var i = 0; i < 12; i++) {
+    var y = 204 + i * 10;
+    if (i < 10) {
+      var lx = 150 - 12 * Math.sin(Math.PI * (i + 1) / 11);
+      costillas[i < 7 ? 'verdaderas' : 'falsas'].push('M192,' + y + ' C178,' + (y - 2) + ' ' + lx.toFixed(1) + ',' + (y + 4) + ' ' + lx.toFixed(1) + ',' + (y + 20));
+    } else {
+      var fx = i === 10 ? 160 : 168;
+      costillas.flotantes.push('M192,' + y + ' C182,' + y + ' ' + (fx + 4) + ',' + (y + 4) + ' ' + fx + ',' + (y + 12));
+    }
   }
   var toracicas = [];
   for (var t = 0; t < 12; t++) toracicas.push([193, 198 + t * 10, 14, 8]);
@@ -425,7 +460,9 @@ window.SISTEMAS.oseo = {
 
   o.formasPosterior = [].concat(
     // Tórax
-    [{ id: 'costillas', par: true, tipo: 'curvas', w: 4, ds: costillas }],
+    [{ id: 'costillas-verdaderas', par: true, tipo: 'curvas', w: 4, ds: costillas.verdaderas },
+     { id: 'costillas-falsas', par: true, tipo: 'curvas', w: 4, ds: costillas.falsas },
+     { id: 'costillas-flotantes', par: true, tipo: 'curvas', w: 3.5, ds: costillas.flotantes }],
     [{ id: 'toracicas', tipo: 'rects', rx: 2, rects: toracicas }],
     solo('clavicula'),
     [{ id: 'escapula', par: true, tipo: 'path', d: 'M133,195 L150,199 L168,204 C171,230 169,252 162,273 C150,259 140,237 134,215 C130,206 130,200 133,195 Z' },
@@ -448,7 +485,7 @@ window.SISTEMAS.oseo = {
      { id: 'sacro', deco: true, estilo: 'hueco', tipo: 'circulos', circulos: [[193, 420, 2], [207, 420, 2], [194, 432, 2], [206, 432, 2], [195, 443, 1.8], [205, 443, 1.8]] }],
     de('coccix'),
 
-    // Miembro inferior (de espaldas no se ven la rótula ni el antepié; del pie asoma el talón)
+    // Miembro inferior (de espaldas no se ven la patela ni el antepié; del pie asoma el talón)
     solo('femur'), solo('perone'), solo('tibia'),
     [{ id: 'tarso', par: true, tipo: 'elipse', cx: 167, cy: 850, rx: 9, ry: 11 }]
   );

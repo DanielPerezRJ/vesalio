@@ -44,7 +44,7 @@ window.LAMINAS = window.LAMINAS || {};
     vistaNombres: '-150 10 600 750',
     vistaSola: '40 10 220 740',
     contorno: CONTORNO,
-    descripcion: 'El hueso del muslo, el más largo y resistente del cuerpo. Su extremo proximal articula con el coxal (cadera) y el distal con la tibia y la rótula (rodilla).',
+    descripcion: 'El hueso del muslo, el más largo y resistente del cuerpo. Su extremo proximal articula con el coxal (cadera) y el distal con la tibia y la patela (rodilla).',
 
     partes: {
       'cabeza': {
@@ -138,8 +138,8 @@ window.LAMINAS = window.LAMINAS || {};
       'epicondilo-lateral': {
         nombre: 'Epicóndilo lateral',
         descripcion: 'Prominencia, menor que la medial, en la cara lateral del cóndilo lateral.',
-        puntos: ['Inserción del ligamento colateral peroneo (lateral) de la rodilla.', 'Bajo él se origina el músculo poplíteo.'],
-        pista: 'Prominencia lateral donde se fija el ligamento colateral peroneo'
+        puntos: ['Inserción del ligamento colateral fibular (lateral) de la rodilla.', 'Bajo él se origina el músculo poplíteo.'],
+        pista: 'Prominencia lateral donde se fija el ligamento colateral fibular'
       },
       'condilo-medial': {
         nombre: 'Cóndilo medial',
@@ -154,10 +154,10 @@ window.LAMINAS = window.LAMINAS || {};
         pista: 'Masa articular distal lateral que apoya sobre el menisco lateral'
       },
       'cara-rotuliana': {
-        nombre: 'Cara rotuliana', alias: 'Tróclea femoral',
+        nombre: 'Cara patelar', alias: 'Cara rotuliana o tróclea femoral',
         descripcion: 'Superficie articular anterior en forma de polea, entre los dos cóndilos.',
-        puntos: ['Articula con la cara posterior de la rótula (articulación femororrotuliana).', 'Su labio lateral es más alto y ayuda a que la rótula no se luxe hacia lateral.'],
-        pista: 'Superficie anterior en polea por donde se desliza la rótula'
+        puntos: ['Articula con la cara posterior de la patela (articulación femoropatelar).', 'Su labio lateral es más alto y ayuda a que la patela no se luxe hacia lateral.'],
+        pista: 'Superficie anterior en polea por donde se desliza la patela'
       },
       'fosa-intercondilea': {
         nombre: 'Fosa intercondílea',

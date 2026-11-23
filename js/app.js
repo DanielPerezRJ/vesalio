@@ -3,6 +3,8 @@
 
   var NS = 'http://www.w3.org/2000/svg';
   var CLAVE = 'vesalio-progreso-v1';
+  var TAM_RONDA = 10;
+  var INTERVALOS = [0, 2, 3, 5, 8];   // rondas que espera cada caja antes de volver a preguntarse
   var PROXIMAMENTE = ['Muscular', 'Nervioso', 'Cardiovascular', 'Respiratorio', 'Digestivo'];
   var LAMINAS = window.LAMINAS || {};
 
@@ -109,8 +111,27 @@
     var k = clave(id);
     var p = progreso[k] || (progreso[k] = { ok: 0, fail: 0 });
     if (acierto) p.ok++; else p.fail++;
+    // Repetición espaciada (sistema de cajas): fallar devuelve a la caja 0, acertar sube una caja
+    p.caja = acierto ? Math.min(INTERVALOS.length - 1, cajaDe(p) + 1) : 0;
+    p.vista = numeroRonda();
     guardarProgreso();
   }
+  // Rondas: cuántas rondas de quiz se han terminado (en cualquier zona)
+  function numeroRonda() { return progreso._ronda || 0; }
+  function cajaDe(p) {
+    if (p.caja != null) return p.caja;
+    return p.fail >= p.ok ? 0 : Math.min(INTERVALOS.length - 1, p.ok - p.fail);   // progreso antiguo
+  }
+  // Menor = más urgente. Falladas primero, luego las que "tocan" según su caja, luego las nuevas, luego el resto.
+  function urgencia(id) {
+    var p = progreso[clave(id)];
+    if (!p) return 2;
+    var caja = cajaDe(p);
+    var toca = numeroRonda() - (p.vista || 0) >= INTERVALOS[caja];
+    if (toca) return caja === 0 ? 0 : 1;
+    return 3 + caja;
+  }
+
   function nivel(id) {
     var p = progreso[clave(id)];
     if (!p) return '';
@@ -385,7 +406,7 @@
     limpiarMarcas();
     estado.pregunta = null;
     if (estado.modo === 'encuentra') nuevaPreguntaTocar();
-    else if (estado.modo === 'quiz') nuevaPreguntaQuiz();
+    else if (estado.modo === 'quiz') nuevaRonda();
     else {
       if (estado.seleccion && esItem(estado.seleccion)) marcar(estado.seleccion, 'activo', true);
       else estado.seleccion = null;
@@ -486,7 +507,7 @@
       html += estado.seleccion
         ? htmlFichaParte(info(estado.seleccion))
         : '<h2>Lámina: ' + esc(estado.lamina.titulo) + '</h2><p>' + esc(estado.lamina.descripcion) + '</p>' +
-          '<p class="nota">Toca una parte del hueso o su nombre. Cambia entre vista anterior y posterior arriba; con «Nombres» puedes ocultar los rótulos para ponerte a prueba.</p>';
+          '<p class="nota">Toca una parte del hueso o su nombre. ' + (estado.lamina.vistas.length > 1 ? 'Cambia entre vista anterior y posterior arriba; c' : 'C') + 'on «Nombres» puedes ocultar los rótulos para ponerte a prueba.</p>';
     } else if (estado.seleccion) {
       html += htmlFicha(porId[estado.seleccion]);
     } else {
@@ -557,11 +578,21 @@
     return html;
   }
 
-  // ---------- Modo Quiz ----------
-  function nuevaPreguntaQuiz() {
+  // ---------- Modo Quiz (por rondas, con repetición espaciada) ----------
+  function nuevaRonda() {
+    var lista = items();
+    var orden = barajar(lista).sort(function (a, b) { return urgencia(a.id) - urgencia(b.id); });
+    var ids = barajar(orden.slice(0, Math.min(TAM_RONDA, lista.length)).map(function (e) { return e.id; }));
+    var repaso = ids.filter(function (id) { return urgencia(id) === 0; }).length;
+    estado.ronda = { ids: ids, i: 0, resultados: [], terminada: false, repaso: repaso };
+    estado.marcador = { aciertos: 0, total: 0, racha: 0 };
+    prepararPreguntaQuiz();
+  }
+
+  function prepararPreguntaQuiz() {
     limpiarMarcas();
     var lista = items();
-    var id = elegir(lista);
+    var id = estado.ronda.ids[estado.ronda.i];
     var e = info(id);
     var tipo = e.pista && Math.random() < 0.4 ? 'pista' : 'resaltado';
     var otros = barajar(lista.filter(function (x) { return x.id !== id; }));
@@ -576,12 +607,27 @@
     renderPanel();
   }
 
+  function siguienteQuiz() {
+    var r = estado.ronda;
+    r.i++;
+    if (r.i < r.ids.length) { prepararPreguntaQuiz(); return; }
+    // Fin de la ronda
+    r.terminada = true;
+    progreso._ronda = numeroRonda() + 1;
+    guardarProgreso();
+    estado.pregunta = null;
+    limpiarMarcas();
+    r.resultados.forEach(function (x) { if (!x.ok) marcar(x.id, 'error', true); });
+    renderPanel();
+  }
+
   function responderQuiz(elegido) {
     var p = estado.pregunta;
     if (!p || p.respuesta) return;
     p.respuesta = elegido;
     var ok = elegido === p.id;
     registrar(p.id, ok);
+    estado.ronda.resultados.push({ id: p.id, ok: ok });
     var m = estado.marcador;
     m.total++;
     if (ok) { m.aciertos++; m.racha++; } else { m.racha = 0; }
@@ -590,10 +636,38 @@
     renderPanel();
   }
 
+  function htmlAvanceRonda() {
+    var r = estado.ronda;
+    var n = r.i + (estado.pregunta && estado.pregunta.respuesta ? 1 : 0);
+    return '<div class="progreso-region"><span class="nota">Ronda · pregunta <b>' + (r.i + 1) + ' de ' + r.ids.length + '</b>' +
+      (r.repaso ? ' · ' + r.repaso + ' de repaso' : '') + '</span>' +
+      '<div class="barra"><span style="width:' + Math.round(100 * n / r.ids.length) + '%"></span></div></div>';
+  }
+
+  function panelResumen() {
+    var r = estado.ronda;
+    var buenas = r.resultados.filter(function (x) { return x.ok; }).length;
+    var malas = r.resultados.filter(function (x) { return !x.ok; });
+    var pct = Math.round(100 * buenas / r.resultados.length);
+    var frase = pct === 100 ? '¡Ronda perfecta!' : pct >= 70 ? '¡Bien hecho!' : 'Sigue practicando, vas mejorando.';
+    return htmlProgreso() +
+      '<div class="reto resumen"><p class="pide">Ronda terminada · ' + esc(nombreContexto()) + '</p>' +
+      '<p class="objetivo-nombre">' + buenas + ' / ' + r.resultados.length + '</p><p class="pista">' + frase + '</p></div>' +
+      (malas.length
+        ? '<h3>Para repasar</h3><p class="nota">Estas volverán en tu próxima ronda. Están marcadas en rojo en la figura.</p>' +
+          '<ul class="lista">' + malas.map(function (x) {
+            return '<li><span class="item-repaso"><span class="punto mal"></span><span class="nombre">' + esc(info(x.id).nombre) + '</span></span></li>';
+          }).join('') + '</ul>'
+        : '<p class="nota">No fallaste ninguna. Las que aciertas vuelven a aparecer cada vez más espaciadas.</p>') +
+      '<div class="acciones"><button class="boton primario" data-accion="nueva-ronda">Nueva ronda</button></div>';
+  }
+
   function panelQuiz() {
+    if (estado.ronda && estado.ronda.terminada) return panelResumen();
     var p = estado.pregunta;
     var e = info(p.id);
-    var html = htmlProgreso() + '<div class="reto">' +
+    var ultima = estado.ronda.i === estado.ronda.ids.length - 1;
+    var html = htmlAvanceRonda() + '<div class="reto">' +
       (p.tipo === 'resaltado'
         ? '<p class="pide">¿Qué ' + (estado.lamina ? 'parte' : 'estructura') + ' está resaltada en la figura?</p>'
         : '<p class="pide">¿Qué ' + (estado.lamina ? 'parte' : 'estructura') + ' es?</p><p class="pista">«' + esc(e.pista) + '»</p>') +
@@ -610,7 +684,7 @@
       var ok = p.respuesta === p.id;
       html += '<div class="mensaje ' + (ok ? 'ok' : 'error') + '">' + (ok ? '¡Correcto!' : 'Era: ' + esc(e.nombre)) + '</div>' +
         '<p>' + esc(e.descripcion) + '</p>' +
-        '<div class="acciones"><button class="boton primario" data-accion="siguiente">Siguiente pregunta</button></div>';
+        '<div class="acciones"><button class="boton primario" data-accion="siguiente">' + (ultima ? 'Ver resultado' : 'Siguiente pregunta') + '</button></div>';
     }
     return html;
   }
@@ -797,7 +871,9 @@
     if (!acc) return;
     var a = acc.getAttribute('data-accion');
     if (a === 'saltar' || a === 'siguiente') {
-      if (estado.modo === 'quiz') nuevaPreguntaQuiz(); else nuevaPreguntaTocar();
+      if (estado.modo === 'quiz') siguienteQuiz(); else nuevaPreguntaTocar();
+    } else if (a === 'nueva-ronda') {
+      nuevaRonda();
     } else if (a === 'abrir-lamina') {
       abrirLamina(acc.getAttribute('data-lamina'));
     } else if (a === 'reiniciar') {
