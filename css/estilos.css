@@ -59,6 +59,7 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }   /* que iPhone no agrande el texto al girar */
 body {
   background: var(--fondo);
   color: var(--texto);
@@ -182,8 +183,8 @@ button, select { font: inherit; color: inherit; }
 .regiones .interruptor { margin-left: auto; }
 .regiones .interruptor::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; background: var(--linea-ui); vertical-align: 1px; }
 .regiones .interruptor.encendido::before { background: var(--acento); }
-.lista .nombre { flex: 1; }
-.mini { font-size: 10.5px; padding: 1px 6px; border-radius: 999px; background: var(--acento-suave); color: var(--acento); font-weight: 600; }
+.lista .nombre { flex: 1; min-width: 0; overflow-wrap: break-word; hyphens: auto; }
+.mini { flex: none; font-size: 10.5px; padding: 1px 6px; border-radius: 999px; background: var(--acento-suave); color: var(--acento); font-weight: 600; }
 .modo-quiz .hueso { cursor: default; }
 @keyframes latido { 50% { opacity: .55; } }
 @media (prefers-reduced-motion: reduce) { .hueso.objetivo { animation: none; } }
@@ -205,9 +206,11 @@ button, select { font: inherit; color: inherit; }
 .progreso-region .barra { height: 6px; border-radius: 3px; background: var(--superficie-2); overflow: hidden; margin-top: 4px; }
 .progreso-region .barra span { display: block; height: 100%; background: var(--acento); transition: width .4s; }
 
-.lista { list-style: none; padding: 0 !important; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+/* minmax(0, 1fr): las columnas no crecen por un nombre largo; así la lista nunca se sale de la pantalla */
+.lista { list-style: none; padding: 0 !important; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.lista li { min-width: 0; }
 .lista button {
-  width: 100%; text-align: left; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--linea-ui);
+  width: 100%; min-width: 0; text-align: left; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--linea-ui);
   background: transparent; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 14px;
 }
 .lista button:hover { border-color: var(--acento); }
@@ -260,5 +263,8 @@ button, select { font: inherit; color: inherit; }
   .principal { display: block; height: auto; min-height: 0; }
   .visor { position: sticky; top: 0; z-index: 2; height: 48vh; border-bottom: 1px solid var(--linea-ui); }
   .panel { border-left: 0; overflow: visible; padding: 16px; min-height: 60vh; }
-  .lista { grid-template-columns: 1fr 1fr; }
+  .lista { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* En celular la etiqueta «lámina» va bajo el nombre, para que el nombre use todo el ancho */
+  .lista button { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 7px; row-gap: 4px; padding: 8px 9px; }
+  .lista .mini { grid-column: 2; justify-self: start; }
 }
