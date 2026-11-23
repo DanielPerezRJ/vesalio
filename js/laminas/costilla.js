@@ -24,7 +24,7 @@ window.LAMINAS = window.LAMINAS || {};
     vistaNombres: '-150 30 600 320',
     vistaSola: '0 50 300 290',
     contorno: CONTORNO,
-    descripcion: 'Las costillas 3.ª a 9.ª tienen la misma forma: un extremo posterior que articula con la columna, un cuerpo largo y curvo, y un extremo anterior que se une al cartílago costal.',
+    descripcion: 'Las costillas 3.ª a 9.ª (verdaderas y falsas) tienen la misma forma: un extremo posterior que articula con la columna, un cuerpo largo y curvo, y un extremo anterior que se une al cartílago costal. Las flotantes (11.ª y 12.ª) son más cortas y casi no tienen cuello ni tubérculo.',
 
     partes: {
       'cabeza': {
@@ -99,4 +99,7 @@ window.LAMINAS = window.LAMINAS || {};
       }
     ]
   };
+  // Los tres tipos de costilla abren la misma lámina de costilla típica
+  window.LAMINAS['costillas-falsas'] = window.LAMINAS['costillas-verdaderas'];
+  window.LAMINAS['costillas-flotantes'] = window.LAMINAS['costillas-verdaderas'];
 })();
