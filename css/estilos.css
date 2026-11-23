@@ -160,7 +160,7 @@ button, select { font: inherit; color: inherit; }
 .atenuado { opacity: .16; pointer-events: none; }
 
 /* ---------- Láminas detalladas ---------- */
-.lam-contorno { fill: url(#grad-hueso); stroke: var(--borde); stroke-width: 1.6; stroke-linejoin: round; pointer-events: none; }
+.lam-contorno { fill-rule: evenodd; fill: url(#grad-hueso); stroke: var(--borde); stroke-width: 1.6; stroke-linejoin: round; pointer-events: none; }
 .lam-sombra { fill: var(--hueso-sombra); stroke: var(--borde); stroke-width: .6; stroke-opacity: .5; pointer-events: none; }
 .lam-linea { fill: none; stroke: var(--borde); stroke-width: 1.1; stroke-opacity: .85; pointer-events: none; }
 .lam-rugoso { fill: none; stroke: var(--borde); stroke-width: 1.2; stroke-dasharray: 2 3; stroke-linecap: round; pointer-events: none; }

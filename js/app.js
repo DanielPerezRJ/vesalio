@@ -326,7 +326,9 @@
   }
 
   function abrirLamina(id) {
+    estado.laminaDesde = id;   // una lámina puede servir a varias estructuras (p. ej., radio y ulna)
     estado.lamina = LAMINAS[id];
+    estado.nombres = true;     // la lámina siempre se abre con los rótulos; el botón «Nombres» los oculta
     estado.vista = estado.lamina.vistas[0].id;
     estado.seleccion = null;
     estado.ultimo = null;
@@ -338,7 +340,7 @@
   }
 
   function cerrarLamina() {
-    var estructura = estado.lamina.estructura;
+    var estructura = estado.laminaDesde || estado.lamina.estructura;
     estado.lamina = null;
     estado.vista = null;
     estado.ultimo = null;
@@ -507,7 +509,7 @@
       html += estado.seleccion
         ? htmlFichaParte(info(estado.seleccion))
         : '<h2>Lámina: ' + esc(estado.lamina.titulo) + '</h2><p>' + esc(estado.lamina.descripcion) + '</p>' +
-          '<p class="nota">Toca una parte del hueso o su nombre. ' + (estado.lamina.vistas.length > 1 ? 'Cambia entre vista anterior y posterior arriba; c' : 'C') + 'on «Nombres» puedes ocultar los rótulos para ponerte a prueba.</p>';
+          '<p class="nota">Toca una parte del hueso o su nombre. ' + (estado.lamina.vistas.length > 1 ? 'Cambia de vista arriba; c' : 'C') + 'on «Nombres» puedes ocultar los rótulos para ponerte a prueba.</p>';
     } else if (estado.seleccion) {
       html += htmlFicha(porId[estado.seleccion]);
     } else {
