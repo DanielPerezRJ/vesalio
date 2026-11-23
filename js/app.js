@@ -207,7 +207,8 @@
 
     var capa = crear('g', { id: 'capa' }, svg);
     var base = v.espejo ? crear('g', { transform: 'translate(' + L.ancho + ',0) scale(-1,1)' }, capa) : capa;
-    crear('path', { d: L.contorno, 'class': 'lam-contorno' }, base);
+    // Cada vista puede tener su contorno; si es una lista, cada pieza se dibuja aparte (huesos de la mano y del pie)
+    [].concat(v.contorno || L.contorno).forEach(function (d) { crear('path', { d: d, 'class': 'lam-contorno' }, base); });
     v.dibujo.forEach(function (d) { crear('path', { d: d.d, 'class': 'lam-' + d.clase }, base); });
 
     v.zonas.forEach(function (z) {
@@ -329,7 +330,8 @@
     estado.laminaDesde = id;   // una lámina puede servir a varias estructuras (p. ej., radio y ulna)
     estado.lamina = LAMINAS[id];
     estado.nombres = true;     // la lámina siempre se abre con los rótulos; el botón «Nombres» los oculta
-    estado.vista = estado.lamina.vistas[0].id;
+    // vistaPara: con qué vista abrir según el hueso desde el que se llega (p. ej., occipital → lateral)
+    estado.vista = (estado.lamina.vistaPara && estado.lamina.vistaPara[id]) || estado.lamina.vistas[0].id;
     estado.seleccion = null;
     estado.ultimo = null;
     estado.marcador = { aciertos: 0, total: 0, racha: 0 };
