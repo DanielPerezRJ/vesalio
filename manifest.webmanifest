@@ -1,0 +1,17 @@
+{
+  "name": "Vesalio · Atlas de Anatomía",
+  "short_name": "Vesalio",
+  "description": "Atlas interactivo para estudiar Anatomía e Histología",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#11161c",
+  "theme_color": "#11161c",
+  "icons": [
+    { "src": "iconos/icono-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "iconos/icono-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "iconos/icono-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

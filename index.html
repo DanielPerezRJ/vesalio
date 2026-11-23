@@ -6,6 +6,16 @@
   <title>Vesalio</title>
   <meta name="description" content="Vesalio: atlas interactivo para estudiar Anatomía e Histología">
   <link rel="stylesheet" href="css/estilos.css">
+  <!-- Instalable como app y usable sin conexión (PWA) -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="iconos/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="iconos/apple-touch-icon.png">
+  <meta name="theme-color" content="#f5f3ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#11161c" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Vesalio">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
   <header class="cabecera">
@@ -65,5 +75,11 @@
   <script src="js/laminas/craneo.js"></script>
   <script src="js/laminas/hioides.js"></script>
   <script src="js/app.js"></script>
+  <script>
+    // Guarda la app para usarla sin conexión (no funciona abriendo el archivo directamente)
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+      window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js'); });
+    }
+  </script>
 </body>
 </html>

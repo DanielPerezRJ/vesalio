@@ -5,7 +5,7 @@ const path = require('path');
 
 const RAIZ = __dirname;
 const PUERTO = process.env.PORT || 5173;
-const TIPOS = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg' };
+const TIPOS = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.webmanifest': 'application/manifest+json', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg' };
 
 http.createServer((req, res) => {
   const ruta = decodeURIComponent(req.url.split('?')[0]);
